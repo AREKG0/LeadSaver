@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LeadSaver</title>
+  <link rel="stylesheet" href="popup.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+</head>
+<body>
+
+  <!-- ====== LOGIN SCREEN ====== -->
+  <div id="auth-screen" class="auth-screen">
+    <div class="auth-screen__inner">
+
+      <!-- Logo & Branding -->
+      <div class="auth-logo">
+        <div class="auth-logo__icon">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+            <rect width="24" height="24" rx="6" fill="url(#logo-gradient-auth)" />
+            <path d="M7 12.5L10.5 16L17 8" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <defs>
+              <linearGradient id="logo-gradient-auth" x1="0" y1="0" x2="24" y2="24">
+                <stop stop-color="#6366F1" />
+                <stop offset="1" stop-color="#8B5CF6" />
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <h1 class="auth-logo__title">LeadSaver</h1>
+        <p class="auth-logo__subtitle">Sign in to start saving leads</p>
+      </div>
+
+      <!-- Auth Form -->
+      <div class="auth-form">
+        <div class="auth-form__field">
+          <label for="auth-email" class="auth-form__label">Email</label>
+          <input
+            type="email"
+            id="auth-email"
+            class="auth-form__input"
+            placeholder="you@example.com"
+            autocomplete="email"
+          />
+        </div>
+        <div class="auth-form__field">
+          <label for="auth-password" class="auth-form__label">Password</label>
+          <input
+            type="password"
+            id="auth-password"
+            class="auth-form__input"
+            placeholder="At least 6 characters"
+            autocomplete="current-password"
+          />
+        </div>
+        <p id="auth-error" class="auth-form__error auth-form__error--hidden"></p>
+        <button id="btn-sign-in" class="auth-btn auth-btn--primary">Sign In</button>
+        <button id="btn-sign-up" class="auth-btn auth-btn--secondary">Create Account</button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ====== MAIN APP (hidden until logged in) ====== -->
+  <div id="main-app" class="app app--hidden">
+
+    <!-- ====== HEADER ====== -->
+    <header class="header">
+      <div class="header__brand">
+        <div class="header__logo">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <rect width="24" height="24" rx="6" fill="url(#logo-gradient)" />
+            <path d="M7 12.5L10.5 16L17 8" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <defs>
+              <linearGradient id="logo-gradient" x1="0" y1="0" x2="24" y2="24">
+                <stop stop-color="#6366F1" />
+                <stop offset="1" stop-color="#8B5CF6" />
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <h1 class="header__title">LeadSaver</h1>
+        <span id="plan-badge" class="plan-badge plan-badge--free">FREE</span>
+      </div>
+      <div class="header__actions">
+        <button id="btn-settings" class="header__settings" title="Settings">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+          </svg>
+        </button>
+        <button id="btn-logout" class="header__logout" title="Sign Out">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+            <polyline points="16 17 21 12 16 7"/>
+            <line x1="21" y1="12" x2="9" y2="12"/>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- ====== USAGE BAR (Free tier) ====== -->
+    <div id="usage-bar" class="usage-bar usage-bar--hidden">
+      <div class="usage-bar__info">
+        <span class="usage-bar__text"><span id="usage-count">0</span> / <span id="usage-limit">50</span> saves this month</span>
+        <span class="usage-bar__plan-text">Free Plan</span>
+      </div>
+      <div class="usage-bar__track">
+        <div class="usage-bar__fill" id="usage-fill" style="width: 0%"></div>
+      </div>
+    </div>
+
+    <!-- ====== STATUS BAR ====== -->
+    <div id="status-bar" class="status-bar status-bar--idle">
+      <div class="status-bar__icon" id="status-icon">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/>
+          <line x1="12" y1="8" x2="12" y2="12"/>
+          <line x1="12" y1="16" x2="12.01" y2="16"/>
+        </svg>
+      </div>
+      <span id="status-text" class="status-bar__text">Navigate to a LinkedIn profile to begin.</span>
+    </div>
+
+    <!-- ====== LEAD PREVIEW CARD ====== -->
+    <div id="lead-card" class="lead-card lead-card--hidden">
+      <div class="lead-card__avatar" id="lead-avatar">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.5">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+          <circle cx="12" cy="7" r="4"/>
+        </svg>
+      </div>
+      <div class="lead-card__info">
+        <p class="lead-card__name" id="lead-name">—</p>
+        <p class="lead-card__detail" id="lead-headline">—</p>
+        <div class="lead-card__tags">
+          <span class="tag" id="lead-company">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+            <span id="lead-company-text">—</span>
+          </span>
+          <span class="tag" id="lead-location">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span id="lead-location-text">—</span>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====== ACTION BUTTON ====== -->
+    <button id="btn-save" class="btn-save" disabled>
+      <span class="btn-save__content">
+        <svg class="btn-save__icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
+          <polyline points="17 21 17 13 7 13 7 21"/>
+          <polyline points="7 3 7 8 15 8"/>
+        </svg>
+        <span id="btn-save-text">Save to Google Sheets</span>
+      </span>
+      <div class="btn-save__loader" id="btn-loader">
+        <div class="spinner"></div>
+      </div>
+    </button>
+
+    <!-- ====== UPGRADE TO PRO BUTTON (hidden by default) ====== -->
+    <button id="btn-upgrade" class="btn-upgrade btn-upgrade--hidden">
+      <span class="btn-upgrade__content">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+        </svg>
+        <span>Upgrade to Pro — Unlimited Saves</span>
+      </span>
+    </button>
+
+    <!-- ====== STATS FOOTER ====== -->
+    <div class="stats">
+      <div class="stats__item">
+        <span class="stats__number" id="stats-total">0</span>
+        <span class="stats__label">Leads Saved</span>
+      </div>
+      <div class="stats__divider"></div>
+      <div class="stats__item">
+        <span class="stats__number" id="stats-session">0</span>
+        <span class="stats__label">This Session</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ====== SETTINGS PANEL (overlay) ====== -->
+  <div id="settings-panel" class="settings settings--hidden">
+    <div class="settings__header">
+      <h2 class="settings__title">Settings</h2>
+      <button id="btn-settings-close" class="settings__close" title="Close">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+    <div class="settings__body">
+      <label class="settings__label" for="input-webhook">Google Apps Script URL</label>
+      <input
+        type="url"
+        id="input-webhook"
+        class="settings__input"
+        placeholder="https://script.google.com/macros/s/…/exec"
+        spellcheck="false"
+        autocomplete="off"
+      />
+      <p class="settings__hint">Paste your deployed Google Apps Script Web App URL here.</p>
+      <button id="btn-save-settings" class="btn-settings-save">Save Settings</button>
+
+      <!-- Account Info -->
+      <div class="settings__divider-line"></div>
+      <p class="settings__label">Account</p>
+      <p class="settings__account-email" id="settings-email">—</p>
+      <p class="settings__hint">Plan: <strong id="settings-plan">FREE</strong></p>
+    </div>
+  </div>
+
+  <!-- ====== TOAST NOTIFICATION ====== -->
+  <div id="toast" class="toast toast--hidden">
+    <span id="toast-text"></span>
+  </div>
+
+  <!-- Scripts -->
+  <script src="../config/config.js"></script>
+  <script src="../utils/utils.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

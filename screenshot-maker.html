@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LeadSaver Screenshot Generator</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+        
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 1280px;
+            height: 800px;
+            overflow: hidden;
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        /* Abstract glowing blobs for the background */
+        .glow-1 {
+            position: absolute;
+            top: -100px;
+            left: -100px;
+            width: 500px;
+            height: 500px;
+            background: rgba(138, 43, 226, 0.4);
+            filter: blur(100px);
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        .glow-2 {
+            position: absolute;
+            bottom: -150px;
+            right: -50px;
+            width: 600px;
+            height: 600px;
+            background: rgba(89, 43, 226, 0.3);
+            filter: blur(120px);
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        .header {
+            margin-top: 60px;
+            text-align: center;
+            z-index: 10;
+        }
+
+        .title {
+            color: #ffffff;
+            font-size: 54px;
+            font-weight: 800;
+            margin: 0;
+            letter-spacing: -1px;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        }
+
+        .highlight {
+            color: #a87ffb;
+            background: -webkit-linear-gradient(0deg, #a87ffb, #ff7e5f);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            color: #b0b0c0;
+            font-size: 24px;
+            font-weight: 400;
+            margin-top: 15px;
+        }
+
+        .screenshot-container {
+            margin-top: 50px;
+            width: 1000px;
+            height: 600px;
+            background: #ffffff;
+            border-radius: 16px 16px 0 0;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.1);
+            overflow: hidden;
+            z-index: 10;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            position: relative;
+        }
+
+        /* Fake browser top bar */
+        .browser-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 30px;
+            background: #f1f1f1;
+            display: flex;
+            align-items: center;
+            padding-left: 15px;
+            box-sizing: border-box;
+            border-bottom: 1px solid #ddd;
+            z-index: 20;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        .dot.red { background: #ff5f56; }
+        .dot.yellow { background: #ffbd2e; }
+        .dot.green { background: #27c93f; }
+
+        /* The actual user image */
+        .upload-instruction {
+            margin-top: 150px;
+            text-align: center;
+            color: #666;
+            font-size: 18px;
+        }
+
+        #user-image {
+            width: 100%;
+            height: auto;
+            margin-top: 30px; /* offset for browser bar */
+            display: none;
+        }
+
+        .upload-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: #6366f1;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        input[type="file"] {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="glow-1"></div>
+    <div class="glow-2"></div>
+
+    <div class="header">
+        <h1 class="title">Save LinkedIn Profiles in <span class="highlight">One Click</span>.</h1>
+        <p class="subtitle">Extract leads and sync them directly to your Google Sheets.</p>
+    </div>
+
+    <div class="screenshot-container">
+        <div class="browser-bar">
+            <div class="dot red"></div>
+            <div class="dot yellow"></div>
+            <div class="dot green"></div>
+        </div>
+        
+        <div class="upload-instruction" id="instruction">
+            <h3>Developer Hack: Let's build your image!</h3>
+            <p>1. Take a raw screenshot of LeadSaver on LinkedIn and save it to your PC.</p>
+            <label class="upload-btn">
+                Upload Your Screenshot Here
+                <input type="file" id="imageLoader" accept="image/*">
+            </label>
+            <p style="font-size: 14px; margin-top: 30px; color: #999;">
+                (After uploading, put your browser in Fullscreen mode (F11) and take a screenshot of this whole page!)
+            </p>
+        </div>
+
+        <img id="user-image" src="" alt="Screenshot">
+    </div>
+
+    <script>
+        const imageLoader = document.getElementById('imageLoader');
+        const userImage = document.getElementById('user-image');
+        const instruction = document.getElementById('instruction');
+
+        imageLoader.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    userImage.src = event.target.result;
+                    userImage.style.display = 'block';
+                    instruction.style.display = 'none';
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
+</body>
+</html>
